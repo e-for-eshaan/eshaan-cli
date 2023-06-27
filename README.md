@@ -1,6 +1,6 @@
 # eshaan-cli | A CLI Tool for Building React/Next Apps
 
-eshaan-cli is a command-line interface (CLI) tool built with Node.js that helps streamline the process of building React/Next.js applications. It provides a simple and intuitive way to generate component templates, manage configuration settings, and customize file types and styling options.
+[eshaan-cli](https://www.npmjs.com/package/eshaan) is a command-line interface (CLI) tool built with Node.js that helps streamline the process of building React/Next.js applications. It provides a simple and intuitive way to generate component templates, manage configuration settings, and customize file types and styling options.
 
 ## Installation
 
