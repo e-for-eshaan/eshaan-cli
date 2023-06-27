@@ -110,7 +110,7 @@ const writeComponent = (
     fileType === ".tsx" ? contentTs(fileName, styleType) : contentJs(fileName, styleType)
   );
 
-  styleType
+  styleType && styleType !== "tailwind"
     ? fs.writeFileSync(
       `${process.cwd()}/${fileName}/${fileName}${styleType}`,
       contentSass(fileName)
@@ -132,7 +132,7 @@ const handleIndexify = (fileType) => {
       .filter(file => file.isDirectory())
       .map(file => file.name);
 
-    fs.writeFileSync(`index${fileType}`, contentIndex(subdirectories, fileType))
+    fs.writeFileSync(`index${fileType === ".tsx" ? ".ts" : ".js"}`, contentIndex(subdirectories, fileType))
   });
 }
 

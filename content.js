@@ -22,13 +22,11 @@ import "./${name}${styleType}";
     : ``}
 interface ${name}Props {}
 
-const ${name}:React.FC<${name}Props> = () => {
+export const ${name}:React.FC<${name}Props> = () => {
   return (
     <div>${name}</div>
   )
 }
-
-export default ${name}
 `;
 
 const contentSass = (name) => {
@@ -38,10 +36,8 @@ const contentSass = (name) => {
 const contentIndex = (directories = [], fileType = "") => {
   directories = directories.sort()
   return directories.map(item => {
-    return `import ${item} from "./${item}/${item}${fileType === '.jsx' ? '.jsx' : ""}";`
+    return `export ${fileType === '.tsx' ? `{ ${item} }` : item} from "./${item}/${item}${fileType === '.jsx' ? '.jsx' : ""}";`
   }).join("\n") + `
-  
-export { ${directories.join(", ")} };
   `
 }
 
