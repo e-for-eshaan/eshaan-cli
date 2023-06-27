@@ -4,15 +4,28 @@ const inquirer = require("inquirer");
 
 // constants
 const { defaultConfig, configFile } = require("./constants.js")
-const defaults = require("./config.json")
-
-// *****************************************************************************
 
 // creates a default config file
 const initializeConfig = (defaultData = defaultConfig) => {
-  console.log("Creating config...")
-  fs.writeFileSync(configFile, JSON.stringify(defaultData));
+  console.log("Creating config")
+  fs.writeFileSync(`${__dirname}\\${configFile}`, JSON.stringify(defaultData, null, "  "));
 };
+
+let defaults
+
+try {
+  defaults = require("./config.json");
+} catch (error) {
+  if (error.code === 'MODULE_NOT_FOUND') {
+    initializeConfig();
+  } else {
+    // Handle other errors if needed
+    console.error(error);
+  }
+}
+
+
+// *****************************************************************************
 
 // print options to intialize config
 const printOptions = () => {
@@ -66,9 +79,9 @@ const printOptions = () => {
 };
 
 const getConfig = (args) => {
-  if (args.includes("--config")) {
+  if (args.includes("-config")) {
     console.log("Default configurations:");
-    console.log(JSON.stringify(defaults, null, " "));
+    console.log(JSON.stringify(defaults, null, "  "));
     return true;
   }
 }
@@ -81,3 +94,4 @@ exports.printOptions = printOptions;
 exports.initializeConfig = initializeConfig;
 exports.getConfig = getConfig;
 exports.emptyArgs = emptyArgs;
+exports.defaults = defaults;

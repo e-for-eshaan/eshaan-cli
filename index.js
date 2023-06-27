@@ -15,15 +15,13 @@ const application = () => {
     if (getConfig(args)) {
         return
     };
-    const getCurrentPath = process.cwd()
     const indexify = isIndexifyEnable(args)
     handleDirectorySpecified(args)
     const { fileNames, fileType, styleType, autoCapitalize } = getFileType(args)
-    console.log({ fileNames })
     fileNames.map(file => {
         writeComponent(file, fileType, styleType, autoCapitalize)
     })
-    if (indexify) handleIndexify(getCurrentPath)
+    if (indexify) handleIndexify()
 }
 
 exports.writeComponentPublic = application;

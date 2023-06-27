@@ -9,11 +9,12 @@ const {
   configFile,
 } = require("./constants.js");
 
+
 // config
-const defaults = require("./config.json");
+const { defaults } = require("./configure.js")
 
 // content
-const { contentJs, contentSass, contentIndex } = require("./content.js")
+const { contentJs, contentTs, contentSass, contentIndex } = require("./content.js")
 
 // ******************************************************************************************************************
 
@@ -57,7 +58,7 @@ const getFileType = (commands) => {
 
 // checks if config file exists
 const configFileExists = () => {
-  const filePath = path.join(__dirname, configFile);
+  const filePath = path.join(process.cwd(), configFile);
   try {
     fs.accessSync(filePath, fs.constants.F_OK);
     return true;
@@ -71,7 +72,7 @@ const handleDirectorySpecified = (args) => {
   const newRoot = args.find(arg => regexIn.test(arg))
   if (newRoot) {
     const dirName = newRoot.slice(3);
-    const folderPath = path.join(__dirname + defaults.root, dirName);
+    const folderPath = path.join(process.cwd() + defaults.root, dirName);
     if (!fs.existsSync(folderPath)) {
       fs.mkdirSync(folderPath);
     }
@@ -106,7 +107,7 @@ const writeComponent = (
 
   fs.writeFileSync(
     `${process.cwd()}/${fileName}/${fileName}${fileType}`,
-    contentJs(fileName, styleType)
+    fileType === ".tsx" ? contentTs(fileName, styleType) : contentJs(fileName, styleType)
   );
 
   styleType
@@ -118,7 +119,7 @@ const writeComponent = (
   console.log(`> Created <${fileName}/> component!`);
 };
 
-const handleIndexify = (path) => {
+const handleIndexify = () => {
   const folderPath = process.cwd();
 
   fs.readdir(folderPath, { withFileTypes: true }, (err, files) => {

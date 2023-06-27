@@ -1,1 +1,6 @@
-{"filetype":".jsx","styling":".scss","autoCapitalize":true,"root":"/src"}
+{
+  "filetype": ".tsx",
+  "styling": ".css",
+  "autoCapitalize": true,
+  "root": "/src"
+}
