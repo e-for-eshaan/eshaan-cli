@@ -35,10 +35,10 @@ const contentSass = (name) => {
   return "";
 };
 
-const contentIndex = (directories = []) => {
+const contentIndex = (directories = [], fileType = "") => {
   directories = directories.sort()
   return directories.map(item => {
-    return `import ${item} from "./${item}/${item}${defaults.filetype === '.jsx' ? '.jsx' : ""}";`
+    return `import ${item} from "./${item}/${item}${fileType === '.jsx' ? '.jsx' : ""}";`
   }).join("\n") + `
   
 export { ${directories.join(", ")} };

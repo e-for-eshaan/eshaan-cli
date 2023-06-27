@@ -21,7 +21,7 @@ const application = () => {
     fileNames.map(file => {
         writeComponent(file, fileType, styleType, autoCapitalize)
     })
-    if (indexify) handleIndexify()
+    if (indexify) handleIndexify(fileType)
 }
 
 exports.writeComponentPublic = application;

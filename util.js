@@ -119,7 +119,7 @@ const writeComponent = (
   console.log(`> Created <${fileName}/> component!`);
 };
 
-const handleIndexify = () => {
+const handleIndexify = (fileType) => {
   const folderPath = process.cwd();
 
   fs.readdir(folderPath, { withFileTypes: true }, (err, files) => {
@@ -132,7 +132,7 @@ const handleIndexify = () => {
       .filter(file => file.isDirectory())
       .map(file => file.name);
 
-    fs.writeFileSync(`index${defaults.filetype}`, contentIndex(subdirectories))
+    fs.writeFileSync(`index${fileType}`, contentIndex(subdirectories, fileType))
   });
 }
 
