@@ -7,7 +7,8 @@ eshaan-cli is a command-line interface (CLI) tool built with Node.js that helps 
 To install eshaan-cli, use the following command:
 
 ```
-npm install -g eshaan-cli
+npm install -g
+npm link
 ```
 
 
