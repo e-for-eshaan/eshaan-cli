@@ -121,6 +121,7 @@ const writeComponent = (
 
 const handleIndexify = (fileType) => {
   const folderPath = process.cwd();
+  console.log("> Indexifying...");
 
   fs.readdir(folderPath, { withFileTypes: true }, (err, files) => {
     if (err) {
@@ -131,8 +132,11 @@ const handleIndexify = (fileType) => {
     const subdirectories = files
       .filter(file => file.isDirectory())
       .map(file => file.name);
+    const fileName = `index${fileType === ".tsx" ? ".ts" : ".js"}`
 
-    fs.writeFileSync(`index${fileType === ".tsx" ? ".ts" : ".js"}`, contentIndex(subdirectories, fileType))
+    fs.writeFileSync(fileName, contentIndex(subdirectories, fileType))
+    console.log(`> Created ${fileName}!`)
+
   });
 }
 

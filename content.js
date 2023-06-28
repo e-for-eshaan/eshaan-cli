@@ -35,10 +35,29 @@ const contentSass = (name) => {
 
 const contentIndex = (directories = [], fileType = "") => {
   directories = directories.sort()
-  return directories.map(item => {
-    return `export ${fileType === '.tsx' ? `{ ${item} }` : item} from "./${item}/${item}${fileType === '.jsx' ? '.jsx' : ""}";`
-  }).join("\n") + `
+
+  switch (fileType) {
+    case ".jsx":
+      return directories.map(item => {
+        return `import ${item} from "./${item}/${item}${defaults.filetype === '.jsx' ? '.jsx' : ""}";`
+      }).join("\n") + `
+  
+export { ${directories.join(", ")} };
   `
+    case ".js":
+      return directories.map(item => {
+        return `import ${item} from "./${item}/${item}${defaults.filetype === '.jsx' ? '.jsx' : ""}";`
+      }).join("\n") + `
+  
+export { ${directories.join(", ")} };
+  `
+    case ".tsx":
+      return directories.map(item => {
+        return `export ${fileType === '.tsx' ? `{ ${item} }` : item} from "./${item}/${item}${fileType === '.jsx' ? '.jsx' : ""}";`
+      }).join("\n") + `
+  `
+  }
+
 }
 
 exports.contentJs = contentJs;

@@ -1,6 +1,6 @@
 {
   "filetype": ".tsx",
-  "styling": "tailwind",
+  "styling": ".scss",
   "autoCapitalize": true,
   "root": "/"
 }
