@@ -40,7 +40,8 @@ Set the file type for a single run of the eshaan CLI, without affecting the CLI'
 ```
 eshaan -ts componentName
 ```
-
+* ### `-ed -e` :
+Let's you choose between export default and export options, which also affects the `indexify` function, by appropriately importing and exporting the components
 
 * ### `-scss -css -tailwind` :
 Set the styling type for a single run of the eshaan-CLI, without affecting the CLI's stored configuration.
