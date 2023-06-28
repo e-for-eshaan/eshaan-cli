@@ -76,23 +76,28 @@ export { Footer, Navbar, Section };
 
 ## Examples
 
-![image](https://github.com/Eshaan-Y24/eshaan-cli/assets/76566992/52e66161-ebf7-4feb-8ae6-ddb26f45099d)<br/>
+![image](https://github.com/Eshaan-Y24/eshaan-cli/assets/76566992/1f31f861-034e-4186-aa06-f050b10ee5ed)
+<br/>
 *Fig 2. Initializing the configurations*
 <br/><br/>
 
-![image](https://github.com/Eshaan-Y24/eshaan-cli/assets/76566992/2d268f93-fd9b-49b6-bfb0-2418c19be5c8)<br/>
+![image](https://github.com/Eshaan-Y24/eshaan-cli/assets/76566992/65fbc346-6014-46e2-b679-2e17bd8008ec)
+<br/>
 *Fig 3. Creating multiple components at once*
 <br/><br/>
 
-![image](https://github.com/Eshaan-Y24/eshaan-cli/assets/76566992/f543800d-e091-402e-8efc-5946a0b907ba)<br/>
-*Fig 4. Specifying directory name for creation of components*
+![image](https://github.com/Eshaan-Y24/eshaan-cli/assets/76566992/0ed6b513-9aaa-4c74-88a9-35ee608faae6)
+<br/>
+*Fig 4. Specifying directory name for the creation of components*
 <br/><br/>
 
-![image](https://github.com/Eshaan-Y24/eshaan-cli/assets/76566992/6fc2d8af-3f40-44d5-b9a4-7af1bbaeda36)<br/>
+![image](https://github.com/Eshaan-Y24/eshaan-cli/assets/76566992/77e3bc45-2320-4dd4-9248-b224a75d1e54)
+<br/>
 *Fig 5. Using `-indexify` creates an index file for easy import and export*
 <br/><br/>
 
-![image](https://github.com/Eshaan-Y24/eshaan-cli/assets/76566992/c5dcf556-c993-46bd-b9c0-aec5bee0e1fd)<br/>
+![image](https://github.com/Eshaan-Y24/eshaan-cli/assets/76566992/a00fc011-c936-4e15-8f42-9eb02705144f)
+<br/>
 *Fig 6. using  `-ts` and `-scss` creates the components with this config, but resets on the next call*
 <br/><br/>
 
