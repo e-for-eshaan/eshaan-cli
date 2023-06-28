@@ -7,8 +7,7 @@
 To install eshaan-cli, use the following command:
 
 ```
-npm install -g
-npm link
+npm install -g eshaan
 ```
 
 
