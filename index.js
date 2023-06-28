@@ -6,6 +6,8 @@ const {
     handleDirectorySpecified,
     getFileType } = require("./util")
 
+// *******************************************************
+
 const application = () => {
     const args = process.argv.slice(2);
     if (!args || !args?.length) {
@@ -16,12 +18,18 @@ const application = () => {
         return
     };
     const indexify = isIndexifyEnable(args)
-    handleDirectorySpecified(args)
-    const { fileNames, fileType, styleType, autoCapitalize } = getFileType(args)
-    fileNames.map(file => {
-        writeComponent(file, fileType, styleType, autoCapitalize)
+    try {
+        handleDirectorySpecified(args)
+    }
+    catch (error) {
+        console.log("\x1b[31m", "- Cannot generate the components! Try changing app root in config")
+        return
+    }
+    const { fileNames, fileType, styleType, autoCapitalize, exportOption } = getFileType(args)
+    fileNames.forEach(file => {
+        writeComponent(file, fileType, styleType, autoCapitalize, exportOption)
     })
-    if (indexify) handleIndexify(fileType)
+    if (indexify) handleIndexify(fileType, exportOption)
 }
 
 exports.writeComponentPublic = application;

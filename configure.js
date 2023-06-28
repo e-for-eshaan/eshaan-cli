@@ -7,8 +7,14 @@ const { defaultConfig, configFile } = require("./constants.js")
 
 // creates a default config file
 const initializeConfig = (defaultData = defaultConfig) => {
-  console.log("Creating config")
-  fs.writeFileSync(`${__dirname}\\${configFile}`, JSON.stringify(defaultData, null, "  "));
+  console.log("\x1b[33m", "> Creating config...")
+  try {
+    fs.writeFileSync(`${__dirname}\\${configFile}`, JSON.stringify(defaultData, null, "  "));
+  }
+  catch (error) {
+    console.log("\x1b[31m", "- Error while generating config!")
+    console.log(error)
+  }
 };
 
 let defaults
@@ -46,6 +52,10 @@ const printOptions = () => {
     { name: "src", value: "/src" },
     { name: "App root", value: "/" },
   ];
+  const exportOption = [
+    { name: "export default", value: "exportDefault" },
+    { name: "export", value: "export" },
+  ];
   const options = [
     {
       type: "list",
@@ -70,6 +80,12 @@ const printOptions = () => {
       name: "root",
       message: "Select root?",
       choices: defaultPath,
+    },
+    {
+      type: "list",
+      name: "exportOption",
+      message: "Export option?",
+      choices: exportOption,
     },
   ];
   const prompt = inquirer.createPromptModule();

@@ -1,6 +1,7 @@
 {
   "filetype": ".tsx",
-  "styling": ".scss",
+  "styling": ".css",
   "autoCapitalize": true,
-  "root": "/"
+  "root": "/src",
+  "exportOption": "exportDefault"
 }

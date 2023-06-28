@@ -14,7 +14,7 @@ const {
 const { defaults } = require("./configure.js")
 
 // content
-const { contentJs, contentTs, contentSass, contentIndex } = require("./content.js")
+const { generateContent, contentSass, contentIndex } = require("./content.js")
 
 // ******************************************************************************************************************
 
@@ -23,6 +23,7 @@ const getFileType = (commands) => {
   let fileType = defaults.filetype;
   let styleType = defaults.styling;
   let fileNames = []
+  exportOption = defaults.exportOption ?? "export"
 
   commands.forEach(item => {
     switch (item) {
@@ -44,8 +45,14 @@ const getFileType = (commands) => {
       case "-css":
         styleType = ".css";
         break;
-      case "tailwind":
+      case "-tailwind":
         styleType = "tailwind";
+        break;
+      case "-e":
+        exportOption = "export";
+        break;
+      case "-ed":
+        exportOption = "exportDefault"
         break;
       default:
         if (!item.startsWith('-') && !item.includes(":"))
@@ -53,7 +60,7 @@ const getFileType = (commands) => {
         break;
     }
   })
-  return { fileNames, fileType, styleType, autoCapitalize: defaults.autoCapitalize };
+  return { fileNames, fileType, styleType, autoCapitalize: defaults.autoCapitalize, exportOption };
 };
 
 // checks if config file exists
@@ -67,18 +74,40 @@ const configFileExists = () => {
   }
 }
 
-// checks if directory is decalred
+// checks if directory is declared
 const handleDirectorySpecified = (args) => {
   const newRoot = args.find(arg => regexIn.test(arg))
   if (newRoot) {
     const dirName = newRoot.slice(3);
-    const folderPath = path.join(process.cwd() + defaults.root, dirName);
-    if (!fs.existsSync(folderPath)) {
-      fs.mkdirSync(folderPath);
+    let folderPath;
+    try {
+      folderPath = path.join(process.cwd() + defaults.root, dirName);
+    } catch (error) {
+      console.log("\x1b[31m", "- Error while generating components:", error);
+      return;
     }
-    process.chdir(folderPath);
+    if (!fs.existsSync(folderPath)) {
+      try {
+        fs.mkdirSync(folderPath);
+        console.log("\x1b[32m", '> Directory created successfully.');
+      } catch (error) {
+        console.log("\x1b[31m", '- An error occurred while creating the directory: ENOENT: no such file or directory');
+        throw error
+      }
+    }
+    try {
+      process.chdir(folderPath);
+    }
+    catch (error) {
+      console.log("- Error!")
+      throw error
+    }
   }
+  return null
 };
+
+
+
 
 // checks if indexify is enabled
 const isIndexifyEnable = (commands) => {
@@ -87,7 +116,12 @@ const isIndexifyEnable = (commands) => {
 
 // create directory
 const createDirectory = (dirName) => {
-  fs.mkdir(`${process.cwd()}/${dirName}`, () => { });
+  try {
+    fs.mkdir(`${process.cwd()}/${dirName}`, () => { });
+  }
+  catch (error) {
+    console.log("\x1b[31m", "- Cannot create directory!")
+  }
 };
 
 // writes a component with directory and styling
@@ -96,18 +130,19 @@ const writeComponent = (
   fileType = "",
   styleType = "",
   autoCapitalize = "",
+  exportOption = ""
 ) => {
   fileName = autoCapitalize
     ? fileName.charAt(0).toUpperCase() + fileName.slice(1)
     : fileName;
 
-  console.log(`> Creating ${fileName}...`);
+  console.log("\x1b[33m", `> Creating ${fileName}...`);
 
   createDirectory(fileName);
 
   fs.writeFileSync(
     `${process.cwd()}/${fileName}/${fileName}${fileType}`,
-    fileType === ".tsx" ? contentTs(fileName, styleType) : contentJs(fileName, styleType)
+    generateContent(fileName, fileType, styleType, exportOption)
   );
 
   styleType && styleType !== "tailwind"
@@ -116,26 +151,25 @@ const writeComponent = (
       contentSass(fileName)
     )
     : null;
-  console.log(`> Created <${fileName}/> component!`);
+  console.log("\x1b[32m", `> Created \x1b[34m<${fileName}/>\x1b[0m \x1b[32mcomponent!`);
 };
 
-const handleIndexify = (fileType) => {
+const handleIndexify = (fileType, exportOption) => {
   const folderPath = process.cwd();
-  console.log("> Indexifying...");
+  console.log("\x1b[33m", "> Indexifying...");
 
   fs.readdir(folderPath, { withFileTypes: true }, (err, files) => {
     if (err) {
-      console.error('Error reading directory:', err);
+      console.error("\x1b[31m", 'Error reading directory:', err);
       return;
     }
-
     const subdirectories = files
       .filter(file => file.isDirectory())
       .map(file => file.name);
     const fileName = `index${fileType === ".tsx" ? ".ts" : ".js"}`
 
-    fs.writeFileSync(fileName, contentIndex(subdirectories, fileType))
-    console.log(`> Created ${fileName}!`)
+    fs.writeFileSync(fileName, contentIndex(subdirectories, exportOption, fileType))
+    console.log("\x1b[32m", `> Created \x1b[34m${fileName}\x1b[0m!`)
 
   });
 }
