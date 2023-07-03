@@ -1,3 +1,5 @@
 #!/usr/bin/env node
 
-require("./index").writeComponentPublic();
+const { application } = require("./index");
+
+application();

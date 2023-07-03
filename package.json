@@ -1,6 +1,6 @@
 {
   "name": "eshaan",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "eshaan-cli is a command-line interface (CLI) tool built with Node.js that helps streamline the process of building React/Next.js applications.",
   "main": "index.js",
   "bin": {
@@ -9,16 +9,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "ReactJS",
-    "NextJS",
-    "TypeScript",
-    "Templates",
-    "Components"
-  ],
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^8.2.5"
+    "inquirer": "^9.2.7"
   }
 }
