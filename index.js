@@ -5,7 +5,7 @@ const constants = () => {
         filetype: ".jsx",
         styling: ".scss",
         autoCapitalize: true,
-        root: "\\src",
+        root: "/src",
     };
     const configFile = "config.json"
 
@@ -29,7 +29,8 @@ const configure = async () => {
     const initializeConfig = (defaultData = defaultConfig) => {
         console.log("\x1b[33m", "> Creating config...")
         try {
-            fs.writeFileSync(`${__dirname}\\${configFile}`, JSON.stringify(defaultData, null, "  "));
+            fs.writeFileSync(`${__dirname}/${configFile}`, JSON.stringify(defaultData, null, "  "));
+            fs.writeFileSync(`./${configFile}`, JSON.stringify(defaultData, null, "  "));
         }
         catch (error) {
             console.log("\x1b[31m", "- Error while generating config!")
@@ -44,12 +45,19 @@ const configure = async () => {
         const data = fs.readFileSync('./config.json', 'utf8');
         defaults = JSON.parse(data);
     } catch (error) {
-        if (error.code === 'ENOENT') {
-            initializeConfig();
-        } else {
-            // Handle other errors if needed
-            console.log("Error while reading file");
-            console.error(error)
+        try {
+            const data = fs.readFileSync(`${__dirname}/${configFile}`, 'utf8');
+            defaults = JSON.parse(data);
+        }
+        catch (error) {
+
+            if (error.code === 'ENOENT') {
+                initializeConfig();
+            } else {
+                // Handle other errors if needed
+                console.log("Error while reading file");
+                console.error(error)
+            }
         }
     }
 
