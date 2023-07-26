@@ -98,7 +98,8 @@ export { Footer, Navbar, Section };
 *Fig 5. Using `-indexify` creates an index file for easy import and export*
 <br/><br/>
 
-![image](https://github.com/Eshaan-Y24/eshaan-cli/assets/76566992/a00fc011-c936-4e15-8f42-9eb02705144f)
+![image](https://github.com/e-for-eshaan/eshaan-cli/assets/76566992/69f07bbe-5e07-439d-b590-1c7ad02ee44b)
+
 <br/>
 *Fig 6. using  `-ts` and `-scss` creates the components with this config, but resets on the next call*
 <br/><br/>
