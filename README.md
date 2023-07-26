@@ -88,7 +88,7 @@ export { Footer, Navbar, Section };
 *Fig 3. Creating multiple components at once*
 <br/><br/>
 
-![image](https://github.com/Eshaan-Y24/eshaan-cli/assets/76566992/0ed6b513-9aaa-4c74-88a9-35ee608faae6)
+![image](https://github.com/e-for-eshaan/eshaan-cli/assets/76566992/2c3ccfd5-32b1-41e7-95b6-2ea1f0ad0b95)
 <br/>
 *Fig 4. Specifying directory name for the creation of components*
 <br/><br/>
